@@ -3,6 +3,7 @@ from django.db import models
 class User(models.Model):
     login = models.CharField(max_length=30)
     last_request = models.DateField('last request')
+    active = models.BooleanField(default=False)
 
 class Place(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -17,3 +18,7 @@ class Place(models.Model):
                  f"lat: {self.lat} " \
                  f"lon: {self.lon}"
         return result
+
+
+
+

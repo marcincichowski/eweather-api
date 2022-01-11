@@ -25,4 +25,5 @@ urlpatterns = [
     path('create-place', views.createPlace, name="create-place"),
     path('update-place/<str:pk>', views.updatePlace, name="update-place"),
     path('delete-place/<str:pk>', views.deletePlace, name="delete-place"),
+    path('get-active-user', views.getActiveUser, name="get-active-user"),
 ]

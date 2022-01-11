@@ -71,3 +71,20 @@ def deletePlace(request, pk):
     place = Place.objects.get(id=pk)
     place.delete()
     return Response("success")
+
+@api_view(['GET'])
+def getActiveUser(request):
+    user = User.objects.get(active=True)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def setActiveUser(request, pk):
+    user = User.objects.get(id=pk)
+    last_user = User.objects.get(active=True)
+    last_user.active = False
+    user.active = True
+    serializer = UserSerializer(instance=user)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
