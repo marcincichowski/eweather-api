@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=200)),
                 ('lat', models.FloatField(default=0.0)),
                 ('lon', models.FloatField(default=0.0)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='weatherApiMain.user')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='eweather_api_controller.user')),
             ],
         ),
     ]

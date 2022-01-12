@@ -1,4 +1,5 @@
 django-heroku
 gunicorn
-djangorestframework
+djangorestframework~=3.13.1
 pytz
+Django~=4.0.1
