@@ -54,7 +54,7 @@ def list_places(request):
 
 @api_view(['GET'])
 def list_user_places(request, pk):
-    place = Place.objects.filter(user=pk)
+    place = Place.objects.filter(owner=pk)
     serializer = PlaceSerializer(place, many=True)
     return Response(serializer.data)
 
