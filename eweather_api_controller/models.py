@@ -19,4 +19,4 @@ class Place(models.Model):
         unique_together = ('lat', 'lon', 'owner')
 
     def __str__(self):
-        return f'Lat: {self.lat} Lon: {self.lon} [Owner: {self.owner.id}\n]' \
+        return f'Lat: {self.lat} Lon: {self.lon} [Owner: {self.owner.id}\n]'
