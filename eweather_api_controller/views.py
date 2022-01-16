@@ -111,7 +111,7 @@ def post_place_weather(request):
 @api_view(['GET'])
 def get_place_weather(request, lat, lon, amount=300):
     try:
-        place_weather = PlaceWeatherInfo.objects.filter(lat=lat, lon=lon)[:amount:-1]
+        place_weather = PlaceWeatherInfo.objects.filter(lat=lat, lon=lon).order_by('-timestamp')[:amount:-1]
     except PlaceWeatherInfo.DoesNotExist:
         place_weather = PlaceWeatherInfo.objects.none()
     serializer = PlaceWeatherInfoSerializer(place_weather, many=True)
