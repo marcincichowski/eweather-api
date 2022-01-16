@@ -20,3 +20,18 @@ class Place(models.Model):
 
     def __str__(self):
         return f'Lat: {self.lat} Lon: {self.lon} [Owner: {self.owner.id}\n]'
+
+
+class PlaceWeatherInfo(models.Model):
+    lat = models.FloatField()
+    lon = models.FloatField()
+    timestamp = models.DateTimeField()
+    temperature = models.FloatField()
+    pressure = models.IntegerField()
+    humidity = models.IntegerField()
+
+    class Meta:
+        unique_together = ('lat', 'lon', 'timestamp')
+
+    def __str__(self):
+        return f'Lat: {self.lat} Lon: {self.lon} at {self.timestamp.now().strftime("%d/%m/%Y %H:%M:%S")}'

@@ -1,10 +1,8 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
 from eweather_api_controller.models import *
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import UserSerializer, PlaceSerializer
+from .serializers import UserSerializer, PlaceSerializer, PlaceWeatherInfoSerializer
 
 
 @api_view(['GET'])
@@ -99,4 +97,22 @@ def set_active_user(request, pk):
     serializer = UserSerializer(instance=user)
     if serializer.is_valid():
         serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def post_place_weather(request):
+    serializer = PlaceWeatherInfoSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_place_weather(request, lat, lon, amount=300):
+    try:
+        place_weather = PlaceWeatherInfo.objects.filter(lat=lat, lon=lon)[:amount]
+    except PlaceWeatherInfo.DoesNotExist:
+        place_weather = PlaceWeatherInfo.objects.none()
+    serializer = PlaceWeatherInfoSerializer(place_weather, many=True)
     return Response(serializer.data)
