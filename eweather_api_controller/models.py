@@ -27,7 +27,7 @@ class Place(models.Model):
 class PlaceWeatherInfo(models.Model):
     lat = models.FloatField(validators=[MinValueValidator(-90), MaxValueValidator(90)])
     lon = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(unique=True)
     temperature = models.FloatField()
     pressure = models.IntegerField()
     humidity = models.IntegerField()
