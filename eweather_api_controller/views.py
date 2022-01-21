@@ -1,7 +1,7 @@
-from eweather_api_controller.models import *
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from eweather_api_controller.models import *
 from .serializers import UserSerializer, PlaceSerializer, PlaceWeatherInfoSerializer
 
 
@@ -100,16 +100,8 @@ def set_active_user(request, pk):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
-def post_place_weather(request):
-    serializer = PlaceWeatherInfoSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
-
-
 @api_view(['GET'])
-def get_place_weather(request, lat, lon, amount=300):
+def get_place_weather(request, lat, lon, amount=24):
     try:
         place_weather = PlaceWeatherInfo.objects.filter(lat=lat, lon=lon).order_by('-timestamp')[:amount:-1]
     except PlaceWeatherInfo.DoesNotExist:

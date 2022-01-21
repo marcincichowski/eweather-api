@@ -37,3 +37,5 @@ class PlaceWeatherInfo(models.Model):
 
     def __str__(self):
         return f'Lat: {self.lat} Lon: {self.lon} [{self.timestamp.strftime("%d.%m.%Y %H:%M")}]'
+
+

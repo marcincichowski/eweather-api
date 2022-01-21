@@ -8,7 +8,8 @@ urlpatterns = [
     path('save_place', views.save_place, name='save_place'),
 ]"""
 
-from django.urls import include, path
+from django.urls import path
+
 from . import views
 
 # Wire up our API using automatic URL routing.
@@ -27,6 +28,5 @@ urlpatterns = [
     path('delete-place/<str:pk>', views.delete_place, name="delete-place"),
     path('get-active-user', views.get_active_user, name="get-active-user"),
 
-    path('post-place-weather', views.post_place_weather, name="post-place-weather"),
     path('get-place-weather/lat=<str:lat>&lon=<str:lon>', views.get_place_weather, name="get-place-weather")
 ]
