@@ -61,6 +61,5 @@ def start():
                       ),
                       jobstore='default',
                       replace_existing=True)
-    fetch_places_info()
     scheduler.start()
     print("Scheduler started...", file=sys.stdout)
