@@ -15,7 +15,7 @@ class Place(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     lat = models.FloatField(validators=[MinValueValidator(-90), MaxValueValidator(90)])
     lon = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
-    address = models.CharField(max_length=100, default='Unknown address')
+    address = models.CharField(max_length=23, default='Unknown address', null=True)
 
     class Meta:
         unique_together = ('lat', 'lon', 'owner')
