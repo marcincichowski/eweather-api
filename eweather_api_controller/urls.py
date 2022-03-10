@@ -26,6 +26,7 @@ urlpatterns = [
     path('update-place/<str:pk>', views.update_place, name="update-place"),
     path('delete-place/<str:pk>', views.delete_place, name="delete-place"),
     path('get-active-user', views.get_active_user, name="get-active-user"),
+    path('set-active-user/<str:pk>', views.set_active_user, name="set-active-user"),
 
     path('post-place-weather', views.post_place_weather, name="post-place-weather"),
     path('get-place-weather/lat=<str:lat>&lon=<str:lon>', views.get_place_weather, name="get-place-weather")

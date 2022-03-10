@@ -1,9 +1,10 @@
+from django.shortcuts import render
+
 from eweather_api_controller.models import *
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer, PlaceSerializer, PlaceWeatherInfoSerializer
-
 
 @api_view(['GET'])
 def list_users(request):
@@ -92,11 +93,12 @@ def get_active_user(request):
 def set_active_user(request, pk):
     user = User.objects.get(id=pk)
     last_user = User.objects.get(active=True)
-    last_user.active = False
-    user.active = True
+    if user != last_user:
+        last_user.active = False
+        user.active = True
+        user.save()
+        last_user.save()
     serializer = UserSerializer(instance=user)
-    if serializer.is_valid():
-        serializer.save()
     return Response(serializer.data)
 
 
@@ -116,3 +118,5 @@ def get_place_weather(request, lat, lon, amount=300):
         place_weather = PlaceWeatherInfo.objects.none()
     serializer = PlaceWeatherInfoSerializer(place_weather, many=True)
     return Response(serializer.data)
+
+

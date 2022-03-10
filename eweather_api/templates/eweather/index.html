@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    {% include 'components/navbar.html' %}
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="column is-12">
+        <section class="hero is-info welcome is-small">
+            <div class="hero-body">
+                <h1 class="title">
+                    eWeather - Panel Administratora
+                </h1>
+            </div>
+        </section>
+        <section class="info-tiles">
+            <div class="tile is-ancestor has-text-centered">
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <a href="{% url 'profiles' %}">
+                            <p class="subtitle">Profile</p>
+                        </a>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <a href="{% url 'settings' %}">
+                            <p class="subtitle">Ustawienia</p>
+                        </a>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <a href="{% url 'devices' %}">
+                            <p class="subtitle">Urządzenia</p>
+                        </a>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <a href="{% url 'places' %}">
+                            <p class="subtitle">Miejsca</p>
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <div class="tile is-ancestor">
+            <div class="tile is-vertical is-12">
+                <div class="tile">
+                    <div class="tile is-parent is-vertical">
+                        <article class="tile is-child box">
+                            <span class="has-text-weight-bold">Aktywne urządzenia:</span><br>
+                            {% if devices.count > 0 %}
+                                TODO: List of active devices
+                            {% else %}
+                                <span class="has-text-weight-semibold">Brak aktywnych urządzeń</span>
+                            {% endif %}
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

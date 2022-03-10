@@ -17,8 +17,18 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 
+from eweather_api import views
+
 urlpatterns = [
 
     path('api/', include('eweather_api_controller.urls')),
     path('admin/', admin.site.urls),
+    #panel
+    path('', views.index, name="index"),
+    path('profiles', views.profiles, name="profiles"),
+    path('add-profile', views.add_profile, name="add-profile"),
+    path('settings', views.settings, name="settings"),
+    path('places', views.places, name="places"),
+    path('add-place', views.add_place, name="add-place"),
+    path('devices', views.devices, name="devices"),
 ]

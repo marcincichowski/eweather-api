@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    {% include 'components/navbar.html' %}
+{% endblock %}
+
+
+
+{% block content %}
+  <script>
+function initMap() {
+  const myLatlng = { lat: 52.400321, lng: 16.955416 };
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 16,
+    center: myLatlng,
+  });
+  // Create the initial InfoWindow.
+  let infoWindow = new google.maps.InfoWindow({
+    content: "Click the map to get Lat/Lng!",
+    position: myLatlng,
+  });
+
+  infoWindow.open(map);
+  // Configure the click listener.
+  map.addListener("click", (mapsMouseEvent) => {
+    // Close the current InfoWindow.
+    infoWindow.close();
+    // Create a new InfoWindow.
+    infoWindow = new google.maps.InfoWindow({
+      position: mapsMouseEvent.latLng,
+    });
+    infoWindow.setContent(
+      JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+    );
+    infoWindow.open(map);
+    pos = mapsMouseEvent.latLng.toJSON()
+
+    document.getElementById("id_lat").value = pos.lat;
+    document.getElementById("id_lon").value = pos.lng;
+  });
+}
+  </script>
+<div class="column is-12">
+        <section class="hero is-info welcome is-small">
+            <div class="hero-body">
+                <h1 class="title">
+                    eWeather - Miejsca
+                </h1>
+            </div>
+        </section>
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Dodaj miejsce
+            </p>
+          </header>
+          <div class="card-content">
+              <form method="post">
+                  {% csrf_token %}
+                  {{ form.errors }}
+                  <div class="field">
+                      <label for="{{ form.owner.id_for_label }}" class="label">Właściciel</label>
+                      <div class="select">
+                          {{ form.owner }}
+                      </div>
+                  </div>
+                  {{ form.lat }}
+                  {{ form.lon }}
+                    <div id="map" style="height: 600px"></div>
+                  <input type="submit" value="Dodaj" class="button is-success mt-2">
+              </form>
+          </div>
+        </div>
+    </div>
+
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmF1P5gY_MNtQhK29GJMdyUP56CMIHmxw&callback=initMap&v=weekly"
+      async
+    ></script>
+{% endblock %}
+

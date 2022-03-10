@@ -14,6 +14,7 @@ class Place(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     lat = models.FloatField()
     lon = models.FloatField()
+    name = models.CharField(max_length=30)
 
     class Meta:
         unique_together = ('lat', 'lon', 'owner')
