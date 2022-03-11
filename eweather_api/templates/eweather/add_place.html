@@ -16,7 +16,7 @@ function initMap() {
   });
   // Create the initial InfoWindow.
   let infoWindow = new google.maps.InfoWindow({
-    content: "Click the map to get Lat/Lng!",
+    content: "Naciśnij na mapę, aby zapisać współrzędne miejsca!",
     position: myLatlng,
   });
 
@@ -60,9 +60,13 @@ function initMap() {
                   {{ form.errors }}
                   <div class="field">
                       <label for="{{ form.owner.id_for_label }}" class="label">Właściciel</label>
-                      <div class="select">
+                      <div class="select is-fullwidth">
                           {{ form.owner }}
                       </div>
+                  </div>
+                  <div class="field">
+                      <label for="{{ form.name.id_for_label }}" class="label">Nazwa</label>
+                      {{ form.name }}
                   </div>
                   {{ form.lat }}
                   {{ form.lon }}

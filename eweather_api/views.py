@@ -1,8 +1,8 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 
-from eweather_api.forms import addProfileForm, addPlaceForm
-from eweather_api_controller.models import User, Place
+from eweather_api.forms import addProfileForm, addPlaceForm, addDeviceForm
+from eweather_api_controller.models import User, Place, Device
 
 
 def index(request):
@@ -43,7 +43,7 @@ def add_place(request):
     if request.method == 'POST':
         form = addPlaceForm(request.POST)
         if form.is_valid():
-            place = Place(owner=form.cleaned_data['owner'], lat=form.cleaned_data['lat'], lon=form.cleaned_data['lon'])
+            place = Place(name=form.cleaned_data['name'], owner=form.cleaned_data['owner'], lat=form.cleaned_data['lat'], lon=form.cleaned_data['lon'])
             place.save()
             return redirect('places')
         else:
@@ -54,5 +54,18 @@ def add_place(request):
 
 
 def devices(request):
+    devices = Device.objects.all()
+    return render(request, 'eweather/devices.html', context={'devices': devices})
 
-    return render(request, 'eweather/devices.html')
+def add_device(request):
+    if request.method == 'POST':
+        form = addDeviceForm(request.POST)
+        if form.is_valid():
+            place = Device(name=form.cleaned_data['name'], mac=form.cleaned_data['mac'])
+            place.save()
+            return redirect('devices')
+        else:
+            return render(request, 'eweather/add_device.html', context={'form': form})
+    else:
+        form = addDeviceForm()
+        return render(request, 'eweather/add_device.html', context={'form': form})

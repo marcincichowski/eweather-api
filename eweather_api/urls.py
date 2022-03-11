@@ -31,4 +31,5 @@ urlpatterns = [
     path('places', views.places, name="places"),
     path('add-place', views.add_place, name="add-place"),
     path('devices', views.devices, name="devices"),
+    path('add-device', views.add_device, name="add-device"),
 ]

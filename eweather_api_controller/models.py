@@ -36,3 +36,8 @@ class PlaceWeatherInfo(models.Model):
 
     def __str__(self):
         return f'Lat: {self.lat} Lon: {self.lon} at {self.timestamp.now().strftime("%d/%m/%Y %H:%M:%S")}'
+
+
+class Device(models.Model):
+    name = models.CharField(max_length=30)
+    mac = models.CharField(max_length=17)
