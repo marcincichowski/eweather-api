@@ -92,12 +92,19 @@ def get_active_user(request):
 @api_view(['POST'])
 def set_active_user(request, pk):
     user = User.objects.get(id=pk)
-    last_user = User.objects.get(active=True)
-    if user != last_user:
-        last_user.active = False
+    try:
+        last_user = User.objects.get(active=True)
+    except User.DoesNotExist:
         user.active = True
         user.save()
-        last_user.save()
+        serializer = UserSerializer(instance=user)
+        return Response(serializer.data)
+    else:
+        if user != last_user:
+            last_user.active = False
+            user.active = True
+            user.save()
+            last_user.save()
     serializer = UserSerializer(instance=user)
     return Response(serializer.data)
 
