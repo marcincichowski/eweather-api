@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+    {% include 'components/navbar.html' %}
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="column is-12">
+        <section class="hero is-info welcome is-small mb-2">
+            <div class="hero-body">
+                <h1 class="title">
+                    eWeather - Panel Administratora
+                </h1>
+            </div>
+        </section>
+        <div class="columns">
+            <div class="column is-4">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="{% static 'images/devices.jpg' %}" alt="Placeholder devices image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">
+                            <span class="title is-4">
+                                <a href="{% url 'devices' %}" class="has-text-primary">Urządzenia</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-4">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="{% static 'images/profiles.jpg' %}" alt="Placeholder profiles image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">
+                            <span class="title is-4">
+                                <a href="{% url 'profiles' %}" class="has-text-primary">Profile</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-4">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="{% static 'images/places.jpg' %}" alt="Placeholder places image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">
+                            <span class="title is-4">
+                                <a href="{% url 'places' %}" class="has-text-primary">Miejsca</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

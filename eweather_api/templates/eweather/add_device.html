@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    {% include 'components/navbar.html' %}
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="column is-12">
+        <section class="hero is-info welcome is-small">
+            <div class="hero-body">
+                <h1 class="title">
+                    eWeather - Urządzenia
+                </h1>
+            </div>
+        </section>
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Dodaj Urządzenia
+            </p>
+          </header>
+          <div class="card-content">
+              <form method="post">
+                  {% csrf_token %}
+                  {{ form.errors }}
+                  <div class="field">
+                      <label for="{{ form.name.id_for_label }}" class="label">Nazwa Urządzenia</label>
+                      {{ form.name }}
+                  </div>
+                  <div class="field">
+                      <label for="{{ form.mac.id_for_label }}" class="label">Adres MAC</label>
+                      {{ form.mac }}
+                  </div>
+                  <input type="submit" value="Dodaj" class="button is-success">
+              </form>
+          </div>
+        </div>
+    </div>
+{% endblock %}
