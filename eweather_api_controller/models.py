@@ -40,4 +40,4 @@ class PlaceWeatherInfo(models.Model):
 
 class Device(models.Model):
     name = models.CharField(max_length=30)
-    mac = models.CharField(max_length=17)
+    mac = models.CharField(max_length=17, unique=True)
