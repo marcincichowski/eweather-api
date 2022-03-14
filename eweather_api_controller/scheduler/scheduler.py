@@ -53,13 +53,13 @@ def fetch_places_info():
 def start():
     scheduler = BackgroundScheduler()
     scheduler.add_jobstore(DjangoJobStore(), "default")
-    # scheduler.add_job(id='fetch_places_info',
-    #                  name='Fetching hourly weather info about every place from database.',
-    #                  func=fetch_places_info,
-    #                  trigger=CronTrigger(
-    #                      minute="00"
-    #                  ),
-    #                  jobstore='default',
-    #                  replace_existing=True)
+    scheduler.add_job(id='fetch_places_info',
+                     name='Fetching hourly weather info about every place from database.',
+                     func=fetch_places_info,
+                     trigger=CronTrigger(
+                         minute="00"
+                     ),
+                     jobstore='default',
+                     replace_existing=True)
     scheduler.start()
     print("Scheduler started...", file=sys.stdout)
