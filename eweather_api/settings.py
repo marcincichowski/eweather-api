@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'eweather_api_controller.apps.eWeatherAPIControllerConfig',
     'rest_framework',
+    'django_apscheduler'
 ]
 
 MIDDLEWARE = [
