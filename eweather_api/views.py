@@ -1,22 +1,42 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from eweather_api.forms import addProfileForm, addPlaceForm, addDeviceForm
 from eweather_api_controller.models import User, Place, Device
 
 
+@login_required(login_url='/auth')
 def index(request):
-
     return render(request, 'eweather/index.html')
 
 def auth(request):
+    if request.method == 'POST':
+        if request.POST['username'] and request.POST['password']:
+            user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+            if user is not None:
+                login(request, user)
+                return redirect(index)
+            else:
+                return render(request, 'eweather/auth.html', context={'error': 'Podano nieprawidłowy login lub hasło!'})
+        else:
+            return render(request, 'eweather/auth.html', context={'error': 'Błąd żądania!'})
+    else:
+        return render(request, 'eweather/auth.html')
 
-    return render(request, 'auth.html')
 
+def logout_view(request):
+    logout(request)
+    return redirect('/auth', context={'error': 'Pomyślnie Wylogowano!'})
+
+
+@login_required(login_url='/auth')
 def profiles(request):
     profiles = User.objects.all()
     return render(request, 'eweather/profiles.html', context={'profiles': profiles})
 
+
+@login_required(login_url='/auth')
 def add_profile(request):
     if request.method == 'POST':
         form = addProfileForm(request.POST)
@@ -30,15 +50,13 @@ def add_profile(request):
         form = addProfileForm()
         return render(request, 'eweather/add_profile.html', context={'form': form})
 
-def settings(request):
 
-    return render(request, 'eweather/settings.html')
-
-
+@login_required(login_url='/auth')
 def places(request):
     places = Place.objects.all()
     return render(request, 'eweather/places.html', context={'places': places})
 
+@login_required(login_url='/auth')
 def add_place(request):
     if request.method == 'POST':
         form = addPlaceForm(request.POST)
@@ -53,10 +71,13 @@ def add_place(request):
         return render(request, 'eweather/add_place.html', context={'form': form})
 
 
+@login_required(login_url='/auth')
 def devices(request):
     devices = Device.objects.all()
     return render(request, 'eweather/devices.html', context={'devices': devices})
 
+
+@login_required(login_url='/auth')
 def add_device(request):
     if request.method == 'POST':
         form = addDeviceForm(request.POST)

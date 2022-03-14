@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="column is-12">
+        <section class="hero is-primary is-fullheight is-fullwidth" style="margin-bottom: -155px">
+            <div class="hero-body">
+                <div class="container">
+                        <div class="box">
+                            <p class="title is-centered has-text-black has-text-centered">
+                                Witamy w panelu eWeather <br />
+                                Logowanie
+                            </p>
+                            {% if error %}
+                                <div class="notification is-error">
+                                    {{error}}
+                                </div>
+                            {% endif %}
+                            <form method="post">
+                                 {% csrf_token %}
+                                <div class="field">
+                                    <label for="login" class="label">Login</label>
+                                    <div class="control">
+                                        <input id="login" class="input" type="text" name="username">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="password" class="label">Hasło</label>
+                                    <div class="control">
+                                        <input id="password" class="input" type="password" name="password">
+                                    </div>
+                                </div>
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button type="submit" class="button is-success">
+                                            Logowanie
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

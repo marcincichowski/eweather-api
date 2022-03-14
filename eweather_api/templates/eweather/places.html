@@ -48,7 +48,11 @@
                                 <td>{{ place.owner.username }}</td>
                                 <td>{{ place.lat }}</td>
                                 <td>{{ place.lon }}</td>
-                                <td>DELETE BUTTON PLACEHOLDER</td>
+                                <td>
+                                    <button class="button is-small icon-button" onclick="delete_place({{ place.id }})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         {% endfor %}
                     {% else %}
@@ -90,5 +94,21 @@
                 });
             }
         );
+        function delete_place(id){
+            $.ajax({
+                url: '/api/delete-place/'+id,
+                type: 'POST',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(){
+                    location.reload();
+                },
+                error: function(err){
+                    alert('Błąd');
+                    location.reload();
+                }
+            });
+        }
 </script>
 {% endblock %}

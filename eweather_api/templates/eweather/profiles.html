@@ -61,6 +61,10 @@
                                                         onclick="setActive({{ profile.id }})"><i
                                                         class="fas fa-check"></i></button>
                                             {% endif %}
+                                            <button class="button is-small icon-button"
+                                                        onclick="delete_user({{ profile.id }})">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -108,12 +112,31 @@
             $.ajax({
                 url: '/api/set-active-user/'+id,
                 type: 'POST',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
                 success: function(){
                     location.reload()
                 },
                 error: function(err){
+                    alert(err);
+                    console.log(err);
+                }
+            });
+        }
+        function delete_user(id){
+            $.ajax({
+                url: '/api/delete-user/'+id,
+                type: 'POST',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(){
+                    alert('12');
+                },
+                error: function(err){
                     alert('Błąd');
-                    location.reload()
+                    location.reload();
                 }
             });
         }

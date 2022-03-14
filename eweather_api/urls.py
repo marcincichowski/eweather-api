@@ -25,9 +25,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #panel
     path('', views.index, name="index"),
+    path('auth', views.auth, name="auth"),
+    path('logout', views.logout_view, name="logout"),
     path('profiles', views.profiles, name="profiles"),
     path('add-profile', views.add_profile, name="add-profile"),
-    path('settings', views.settings, name="settings"),
     path('places', views.places, name="places"),
     path('add-place', views.add_place, name="add-place"),
     path('devices', views.devices, name="devices"),
