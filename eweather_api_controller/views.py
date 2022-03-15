@@ -20,12 +20,15 @@ def check_hardware_address(request):
         if mac is None:
             return False
 
-        print(f"Trying to Auth device with MAC:{mac}")
+        print(f"Device auth attempt. MAC: \''{mac}\'")
         sys.stdout.flush()
 
         device = Device.objects.filter(mac=mac).first()
 
         if device is None:
+            print(f"Unauthorized [{mac}]")
+            sys.stdout.flush()
+
             return False
 
     return True
