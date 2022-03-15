@@ -194,7 +194,7 @@ def post_place_weather(request):
 
 
 @api_view(['GET'])
-def get_place_weather(request, lat, lon, amount=300):
+def get_place_weather(request, lat, lon, amount=24):
     if not check_hardware_address(request):
         return HttpResponse('Unauthorized', status=401)
     else:
