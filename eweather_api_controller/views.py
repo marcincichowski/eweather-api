@@ -16,6 +16,10 @@ def check_hardware_address(request):
         else:
             if 'Hardware-Address' in request.headers:
                 mac = request.headers.get('Hardware-Address')
+                if mac is None:
+                    return False
+
+                print(f"Trying to Auth device with MAC:{mac}")
                 device = Device.objects.get(mac=mac)
                 if device:
                     return True
