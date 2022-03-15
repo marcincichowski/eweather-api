@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [
     '192.168.1.135',
     '127.0.0.1',
     '127.0.0.1:8000',
-    '.herokuapp.com'
+    'eweather-api.herokuapp.com'
 ]
 
 # Application definition
