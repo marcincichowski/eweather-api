@@ -1,3 +1,5 @@
+import sys
+
 from django.conf import settings
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
@@ -20,6 +22,7 @@ def check_hardware_address(request):
                     return False
 
                 print(f"Trying to Auth device with MAC:{mac}")
+                sys.stdout.flush()
                 device = Device.objects.get(mac=mac)
                 if device:
                     return True
