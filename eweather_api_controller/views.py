@@ -12,25 +12,26 @@ from .serializers import UserSerializer, PlaceSerializer, PlaceWeatherInfoSerial
 
 def check_hardware_address(request):
     if 'Host' in request.headers:
-        host = request.headers.get('Host')
-        if host in settings.ALLOWED_HOSTS:
-            return True
-        else:
-            if 'Hardware-Address' in request.headers:
-                mac = request.headers.get('Hardware-Address')
-                if mac is None:
-                    return False
+        if request.headers.get('Host') not in settings.ALLOWED_HOSTS:
+            return False
 
-                print(f"Trying to Auth device with MAC:{mac}")
-                sys.stdout.flush()
-                device = Device.objects.get(mac=mac)
-                if device:
-                    return True
-                else:
-                    return False
-            else:
-                return False
-    return False
+    if 'Hardware-Address' in request.headers:
+        mac = request.headers.get('Hardware-Address')
+        if mac is None:
+            return False
+
+        print(f"Device auth attempt. MAC: \''{mac}\'")
+        sys.stdout.flush()
+
+        device = Device.objects.filter(mac=mac).first()
+
+        if device is None:
+            print(f"Unauthorized [{mac}]")
+            sys.stdout.flush()
+
+            return False
+
+    return True
 
 
 @api_view(['GET'])
